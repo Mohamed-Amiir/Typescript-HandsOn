@@ -1,8 +1,10 @@
-
-function reportErrors(username, age: number) {
-  let rank = "Professor";
-  return `Username: ${username}`;
-  console.log("We Will Not Reach Here");
+function printInConsole(...[]:any) {
+  for (let i = 0; i < arguments.length; i++) {
+    console.log(`The Value Is ${arguments[i]} And Type Is ${typeof arguments[i]}`);
+  }
+  console.log("Done");
 }
 
-console.log(reportErrors("Elzero", 40));
+console.log(printInConsole(1, 2, 3, 4, 5));
+console.log(printInConsole("A", "B", "C"));
+console.log(printInConsole(true, false, false, true, true));
