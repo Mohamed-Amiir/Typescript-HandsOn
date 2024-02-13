@@ -1,0 +1,36 @@
+body {
+  background-color: rgb(3, 18, 18);
+}
+.calculator {
+  width: 350px;
+  margin: 50px auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#display {
+  width: 98%;
+  margin-bottom: 10px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px;
+}
+
+button {
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+button:active {
+  background-color: #888383;
+}
