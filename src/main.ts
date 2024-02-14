@@ -10,19 +10,23 @@ class Calculator {
   }
 
   Add(): number | string {
-    if (this.num1 && this.num2) return this.num1 + this.num2;
+    if (typeof this.num1 == "number" && typeof this.num2 == "number")
+      return this.num1 + this.num2;
     else return "Error";
   }
   Sub(): number | string {
-    if (this.num1 && this.num2) return this.num1 - this.num2;
+    if (typeof this.num1 == "number" && typeof this.num2 == "number")
+      return this.num1 - this.num2;
     else return "Error";
   }
   Multiply(): number | string {
-    if (this.num1 && this.num2) return this.num1 * this.num2;
+    if (typeof this.num1 == "number" && typeof this.num2 == "number")
+      return this.num1 * this.num2;
     else return "Error";
   }
   Devide(): number | string {
-    if (this.num1 != null && this.num2 != null) return this.num1 / this.num2;
+    if (typeof this.num1 == "number" && typeof this.num2 == "number")
+      return this.num1 / this.num2;
     else return "Error";
   }
 
@@ -30,7 +34,9 @@ class Calculator {
     this.sign = s;
   }
   Clear() {
-    this.constructor();
+    this.num1 = null;
+    this.num2 = null;
+    this.sign = "";
   }
 }
 let calculator = new Calculator();
@@ -68,8 +74,8 @@ function calculateResult() {
   //     display.value = "Error";
   //   }
   // }
-  appendToDisplay('=');
   if (display) {
+    display.value = "";
     if (calculator.sign == "+") display.value += calculator.Add();
     else if (calculator.sign == "-") display.value += calculator.Sub();
     else if (calculator.sign == "*") display.value += calculator.Multiply();

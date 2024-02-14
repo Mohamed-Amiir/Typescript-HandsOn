@@ -6,25 +6,25 @@ class Calculator {
         this.sign = "";
     }
     Add() {
-        if (this.num1 && this.num2)
+        if (typeof this.num1 == "number" && typeof this.num2 == "number")
             return this.num1 + this.num2;
         else
             return "Error";
     }
     Sub() {
-        if (this.num1 && this.num2)
+        if (typeof this.num1 == "number" && typeof this.num2 == "number")
             return this.num1 - this.num2;
         else
             return "Error";
     }
     Multiply() {
-        if (this.num1 && this.num2)
+        if (typeof this.num1 == "number" && typeof this.num2 == "number")
             return this.num1 * this.num2;
         else
             return "Error";
     }
     Devide() {
-        if (this.num1 != null && this.num2 != null)
+        if (typeof this.num1 == "number" && typeof this.num2 == "number")
             return this.num1 / this.num2;
         else
             return "Error";
@@ -33,7 +33,9 @@ class Calculator {
         this.sign = s;
     }
     Clear() {
-        this.constructor();
+        this.num1 = null;
+        this.num2 = null;
+        this.sign = "";
     }
 }
 let calculator = new Calculator();
@@ -59,8 +61,8 @@ function clearDisplay() {
     }
 }
 function calculateResult() {
-    appendToDisplay('=');
     if (display) {
+        display.value = "";
         if (calculator.sign == "+")
             display.value += calculator.Add();
         else if (calculator.sign == "-")
