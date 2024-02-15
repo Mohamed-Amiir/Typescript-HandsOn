@@ -1,4 +1,27 @@
 "use strict";
+class Queue {
+    constructor() {
+        this.items = [];
+    }
+    push(element) {
+        this.items.push(element);
+    }
+    pop() {
+        return this.items.pop();
+    }
+    peek() {
+        return this.items[this.items.length - 1];
+    }
+    isEmpty() {
+        return this.items.length === 0;
+    }
+    size() {
+        return this.items.length;
+    }
+    clear() {
+        this.items = [];
+    }
+}
 class Calculator {
     constructor() {
         this.num1 = null;
@@ -38,13 +61,15 @@ class Calculator {
         this.sign = "";
     }
 }
+let stack = new Queue();
 let calculator = new Calculator();
 let display = document.getElementById("display");
+display.value = " ";
 function appendToDisplay(value) {
     if (display) {
         display.value += value;
     }
-    if (value == "+" || value == "-" || value == "*" || value == "/") {
+    if (value == " + " || value == " - " || value == " * " || value == " / ") {
         calculator.GetSign(value);
     }
     else {
@@ -56,20 +81,20 @@ function appendToDisplay(value) {
 }
 function clearDisplay() {
     if (display) {
-        display.value = "";
+        display.value = " ";
         calculator.Clear();
     }
 }
 function calculateResult() {
     if (display) {
-        display.value = "";
-        if (calculator.sign == "+")
+        display.value = " ";
+        if (calculator.sign == " + ")
             display.value += calculator.Add();
-        else if (calculator.sign == "-")
+        else if (calculator.sign == " - ")
             display.value += calculator.Sub();
-        else if (calculator.sign == "*")
+        else if (calculator.sign == " * ")
             display.value += calculator.Multiply();
-        else if (calculator.sign == "/")
+        else if (calculator.sign == " / ")
             display.value += calculator.Devide();
     }
 }
