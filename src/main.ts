@@ -2,34 +2,35 @@ class Queue<T> {
   private items: T[];
 
   constructor() {
-      this.items = [];
+    this.items = [];
   }
 
-  push(element: T): void {
-      this.items.push(element);
+  enqueue(element: T): void {
+    this.items.push(element);
   }
 
-  pop(): T | undefined {
-      return this.items.pop();
+  dequeue(): T | undefined {
+    return this.items.shift();
   }
 
-  peek(): T | undefined {
-      return this.items[this.items.length - 1];
+  front(): T | undefined {
+    return this.items[0];
   }
 
   isEmpty(): boolean {
-      return this.items.length === 0;
+    return this.items.length === 0;
   }
 
   size(): number {
-      return this.items.length;
+    return this.items.length;
   }
 
   clear(): void {
-      this.items = [];
+    this.items = [];
   }
 }
 
+const queue = new Queue<any>();
 
 class Calculator {
   num1: number | null;
@@ -72,24 +73,36 @@ class Calculator {
     this.sign = "";
   }
 }
-let stack = new Queue();
+
 let calculator = new Calculator();
-// console.log(calculator.Add());
-// calculator.num1 = 8;
-// console.log(calculator.Add())
+
 let display: HTMLInputElement | null = document.getElementById(
   "display"
 ) as HTMLInputElement;
 display.value = " ";
+
 function appendToDisplay(value: string) {
   if (display) {
     display.value += value;
+    queue.enqueue(value);
   }
   if (value == " + " || value == " - " || value == " * " || value == " / ") {
     calculator.GetSign(value);
-  } else {
-    if (calculator.num1 == null) calculator.num1 = parseInt(value);
-    else calculator.num2 = parseInt(value);
+    let x: string = "";
+    while (queue.front() != value && !queue.isEmpty()) {
+      x += queue.dequeue();
+    }
+    queue.dequeue();
+    if (calculator.num1 == null) calculator.num1 = parseInt(x);
+    else calculator.num2 = parseInt(x);
+  } else if (value == "=") {
+    let x: string = "";
+    while (queue.front() != value && !queue.isEmpty()) {
+      x += queue.dequeue();
+    }
+    queue.dequeue();
+    if (calculator.num1 == null) calculator.num1 = parseInt(x);
+    else calculator.num2 = parseInt(x);
   }
 }
 
@@ -108,6 +121,7 @@ function calculateResult() {
   //     display.value = "Error";
   //   }
   // }
+  appendToDisplay("=");
   if (display) {
     display.value = " ";
     if (calculator.sign == " + ") display.value += calculator.Add();
@@ -116,6 +130,3 @@ function calculateResult() {
     else if (calculator.sign == " / ") display.value += calculator.Devide();
   }
 }
-
-// let rect = new Rectangle(5, 10);
-// console.log(rect.calculateArea()); // Output: 50

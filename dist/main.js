@@ -3,14 +3,14 @@ class Queue {
     constructor() {
         this.items = [];
     }
-    push(element) {
+    enqueue(element) {
         this.items.push(element);
     }
-    pop() {
-        return this.items.pop();
+    dequeue() {
+        return this.items.shift();
     }
-    peek() {
-        return this.items[this.items.length - 1];
+    front() {
+        return this.items[0];
     }
     isEmpty() {
         return this.items.length === 0;
@@ -22,6 +22,7 @@ class Queue {
         this.items = [];
     }
 }
+const queue = new Queue();
 class Calculator {
     constructor() {
         this.num1 = null;
@@ -61,22 +62,36 @@ class Calculator {
         this.sign = "";
     }
 }
-let stack = new Queue();
 let calculator = new Calculator();
 let display = document.getElementById("display");
 display.value = " ";
 function appendToDisplay(value) {
     if (display) {
         display.value += value;
+        queue.enqueue(value);
     }
     if (value == " + " || value == " - " || value == " * " || value == " / ") {
         calculator.GetSign(value);
-    }
-    else {
+        let x = "";
+        while (queue.front() != value && !queue.isEmpty()) {
+            x += queue.dequeue();
+        }
+        queue.dequeue();
         if (calculator.num1 == null)
-            calculator.num1 = parseInt(value);
+            calculator.num1 = parseInt(x);
         else
-            calculator.num2 = parseInt(value);
+            calculator.num2 = parseInt(x);
+    }
+    else if (value == "=") {
+        let x = "";
+        while (queue.front() != value && !queue.isEmpty()) {
+            x += queue.dequeue();
+        }
+        queue.dequeue();
+        if (calculator.num1 == null)
+            calculator.num1 = parseInt(x);
+        else
+            calculator.num2 = parseInt(x);
     }
 }
 function clearDisplay() {
@@ -86,6 +101,7 @@ function clearDisplay() {
     }
 }
 function calculateResult() {
+    appendToDisplay("=");
     if (display) {
         display.value = " ";
         if (calculator.sign == " + ")
