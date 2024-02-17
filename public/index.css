@@ -1,6 +1,11 @@
 body {
   background-color: rgb(3, 18, 18);
 }
+h1{
+  color: white;
+  text-align: center;
+  font-family:'Trebuchet MS', 'Lucida Grande', Arial, sans-serif;
+}
 .calculator {
   width: 350px;
   margin: 50px auto;
